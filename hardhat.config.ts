@@ -9,6 +9,7 @@ import "hardhat-spdx-license-identifier";
 import "hardhat-typechain";
 import "hardhat-watcher";
 import "solidity-coverage";
+import "@tenderly/hardhat-tenderly";
 
 import { HardhatUserConfig, task } from "hardhat/config";
 
@@ -94,6 +95,10 @@ const config: HardhatUserConfig = {
         runs: 200,
       },
     },
+  },
+  tenderly: {
+    project: process.env.TENDERLY_PROJECT,
+    username: process.env.TENDERLY_USERNAME,
   },
   watcher: {
     compile: {
