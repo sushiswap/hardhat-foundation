@@ -3,7 +3,6 @@
   "scripts": {
     "build": "hardhat compile",
     "console": "hardhat console",
-    "node": "hardhat node",
     "mainnet:deploy": "hardhat --network mainnet deploy",
     "mainnet:verify": "hardhat --network mainnet etherscan-verify --solc-input --license MIT",
     "mainnet:export": "hardhat --network mainnet export",
