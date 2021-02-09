@@ -80,6 +80,38 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
       tags: ["staging"],
     },
+    goerli: {
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts,
+      chainId: 5,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+    },
+    kovan: {
+      url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts,
+      chainId: 42,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+    },
+    moonbase: {
+      url: 'https://rpc.testnet.moonbeam.network',
+      accounts,
+      chainId: 1287,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+    },
+    arbitrum: {
+      url: 'https://kovan3.arbitrum.io/rpc',
+      accounts,
+      chainId: 79377087078960,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+    }
   },
   preprocess: {
     eachLine: removeConsoleLog(
