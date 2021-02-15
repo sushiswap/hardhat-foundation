@@ -36,11 +36,11 @@
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
-      "prettier --write test/**/*.{js,ts}"
+      "prettier --write"
     ],
     "*.sol": [
-      "solhint -c .solhint.json contracts/**/*.sol",
-      "prettier --write contracts/**/*.sol"
+      "solhint -c .solhint.json",
+      "prettier --write"
     ]
   },
   "devDependencies": {
