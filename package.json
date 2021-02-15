@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-template",
+  "name": "hardhat-foundation",
   "scripts": {
     "build": "hardhat compile",
     "console": "hardhat console",
