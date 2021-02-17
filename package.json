@@ -38,23 +38,16 @@
     "test:coverage": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" hardhat coverage",
     "test:gas": "cross-env REPORT_GAS=true yarn test"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
+      "eslint --cache --fix",
+      "prettier --write"
     ],
     "*.sol": [
       "solhint -c .solhint.json",
-      "prettier --write",
-      "git add"
-    ]
+      "prettier --write"
+    ],
+    "*.md": "prettier --write"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
