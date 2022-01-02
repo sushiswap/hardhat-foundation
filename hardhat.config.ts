@@ -3,13 +3,13 @@ import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-solhint";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
+import "@tenderly/hardhat-tenderly";
+import "@typechain/hardhat";
 import "hardhat-deploy";
 import "hardhat-gas-reporter";
 import "hardhat-spdx-license-identifier";
 import "hardhat-watcher";
 import "solidity-coverage";
-import "@typechain/hardhat";
-import "@tenderly/hardhat-tenderly";
 
 import { HardhatUserConfig, task } from "hardhat/config";
 
@@ -62,8 +62,6 @@ const config: HardhatUserConfig = {
       tags: ["local"],
     },
     hardhat: {
-      // Seems to be a bug with this, even when false it complains about being unauthenticated.
-      // Reported to HardHat team and fix is incoming
       forking: {
         enabled: process.env.FORKING === "true",
         url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
@@ -71,6 +69,15 @@ const config: HardhatUserConfig = {
       live: false,
       saveDeployments: true,
       tags: ["test", "local"],
+    },
+    ethereum: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts,
+      chainId: 1,
+      live: true,
+      saveDeployments: true,
+      tags: ["mainnet"],
+      hardfork: process.env.CODE_COVERAGE ? "berlin" : "london",
     },
     ropsten: {
       url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -88,74 +95,6 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
       tags: ["staging"],
     },
-    kovan: {
-      url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
-      accounts,
-      chainId: 42,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    moonbase: {
-      url: "https://rpc.testnet.moonbeam.network",
-      accounts,
-      chainId: 1287,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    arbitrum: {
-      url: "https://kovan3.arbitrum.io/rpc",
-      accounts,
-      chainId: 79377087078960,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    fantom: {
-      url: "https://rpcapi.fantom.network",
-      accounts,
-      chainId: 250,
-      live: true,
-      saveDeployments: true,
-    },
-    fantom_testnet: {
-      url: "https://rpc.testnet.fantom.network",
-      accounts,
-      chainId: 4002,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    matic: {
-      url: "https://rpc-mainnet.maticvigil.com",
-      accounts,
-      chainId: 137,
-      live: true,
-      saveDeployments: true,
-    },
-    xdai: {
-      url: "https://rpc.xdaichain.com",
-      accounts,
-      chainId: 100,
-      live: true,
-      saveDeployments: true,
-    },
-    bsc: {
-      url: "https://bsc-dataseed.binance.org",
-      accounts,
-      chainId: 56,
-      live: true,
-      saveDeployments: true,
-    },
-    bsc_testnet: {
-      url: "https://data-seed-prebsc-2-s3.binance.org:8545",
-      accounts,
-      chainId: 97,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
   },
   preprocess: {
     eachLine: removeConsoleLog(
@@ -164,17 +103,21 @@ const config: HardhatUserConfig = {
     ),
   },
   solidity: {
-    version: "0.6.12",
+    version: "0.8.11",
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200,
+        runs: 999999,
       },
     },
   },
   tenderly: {
-    project: process.env.TENDERLY_PROJECT,
-    username: process.env.TENDERLY_USERNAME,
+    project: String(process.env.TENDERLY_PROJECT),
+    username: String(process.env.TENDERLY_USERNAME),
+  },
+  typechain: {
+    outDir: "types",
+    target: "ethers-v5",
   },
   watcher: {
     compile: {

@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity 0.8.11;
 
 import "hardhat/console.sol";
 
 contract Greeter {
     string greeting;
 
-    constructor(string memory _greeting) public {
+    constructor(string memory _greeting) {
         console.log("Deploying a Greeter with greeting:", _greeting);
         greeting = _greeting;
     }
