@@ -5,6 +5,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "@tenderly/hardhat-tenderly";
 import "@typechain/hardhat";
+import "hardhat-contract-sizer";
 import "hardhat-deploy";
 import "hardhat-gas-reporter";
 import "hardhat-spdx-license-identifier";
@@ -32,6 +33,13 @@ task("accounts", "Prints the list of accounts", async (args, { ethers }) => {
 });
 
 const config: HardhatUserConfig = {
+  contractSizer: {
+    alphaSort: true,
+    disambiguatePaths: false,
+    runOnCompile: true,
+    strict: true,
+    only: [":Greeter$"],
+  },
   defaultNetwork: "hardhat",
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
